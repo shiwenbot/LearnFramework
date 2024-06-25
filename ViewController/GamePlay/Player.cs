@@ -4,6 +4,8 @@ using UnityEngine;
 namespace ShootGame{
     public class Player : MonoBehaviour, IController
     {
+        /*private UI_Inventory uiInventory;
+        private Inventory inventory;*/
         private Rigidbody2D mRigidbody2D;
         private bool mJump = false; //½ÇÉ«ÌøÔ¾
         private CollisionCheck mCollisionCheck;
@@ -14,6 +16,9 @@ namespace ShootGame{
             mRigidbody2D = GetComponent<Rigidbody2D>();
             mCollisionCheck = transform.Find("GroundCheck").GetComponent<CollisionCheck>();
             gun = transform.Find("Gun").GetComponent<Gun>();
+            /*inventory = new Inventory();
+            uiInventory = GameObject.FindWithTag("SlotContainer").GetComponent<UI_Inventory>();
+            uiInventory.SetInventory(inventory);*/
         }
 
         private void Update()

@@ -6,13 +6,14 @@ namespace ShootGame
     {
         private Transform playerTransform;
 
-        private void Awake()
+        private void Start()
         {
             playerTransform = GameObject.FindWithTag("Player").transform;
         }
 
         private void Update()
         {
+            
             if (playerTransform != null)
             {
                 var camPosition = transform.position;

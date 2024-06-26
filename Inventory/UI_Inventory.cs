@@ -1,3 +1,6 @@
+/*
+ 参考资料：https://github.com/ivomarel/InfinityScroll/blob/master/Scripts/InfiniteScroll.cs#L168
+ */
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,18 +8,18 @@ using UnityEngine.UI;
 namespace ShootGame
 {
     public class UI_Inventory : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandler
-    {
+    {        
         private Inventory inventory;
         private GameObject itemGameObject;
 
         public RectTransform container;       
         private Vector3 lastMousePos; //鼠标位置
         private float offset = 0; //偏移量
-        private int leftIndex = 0, rightIndex = 0; //list的index要比container的child小1，因为child包含了一个预制体（在初始化完成后会被设置成inactive）
+        private int leftIndex = 0, rightIndex = 0; //list的index要比container的child小1，因为child包含了一个预制体（在初始化完成后会被设置成inactive）        
 
         private void Awake()
         {
-            inventory = new Inventory();
+            inventory = new CurrentInventoryQuery().Do();
             itemGameObject = GameObject.Find("Item");
         }
 
@@ -31,7 +34,7 @@ namespace ShootGame
         }
 
         private void Init()
-        {
+        {            
             //根据container的height计算出需要生成多少个slot
             int slotCount = (int)(container.rect.height / itemGameObject.GetComponent<RectTransform>().rect.height);
             rightIndex = slotCount - 1;
@@ -78,6 +81,7 @@ namespace ShootGame
             }
         }
 
+        #region MouseDrag
         public void OnBeginDrag(PointerEventData eventData)
         {
             lastMousePos = eventData.position;
@@ -100,5 +104,6 @@ namespace ShootGame
         {
             //throw new System.NotImplementedException();
         }
+        #endregion
     }
 }

@@ -125,7 +125,7 @@ namespace ShootGame
                     level.AppendChild(levelItem);
                 }
 
-                // -+
+                
                 var levelFilesFolder = Application.persistentDataPath + "/LevelFiles";
                 Debug.Log(levelFilesFolder);
 
@@ -176,7 +176,7 @@ namespace ShootGame
 
             //如果鼠标位置和高亮块的位置相同，什么都不做
             if (Math.Abs(EmptyHighlight.transform.position.x - worldMousePos.x) < 0.1f
-                && Math.Abs(EmptyHighlight.transform.position.y - worldMousePos.y) < 0.1f) // -+
+                && Math.Abs(EmptyHighlight.transform.position.y - worldMousePos.y) < 0.1f) 
             {
                 
             }
@@ -219,15 +219,14 @@ namespace ShootGame
 
                     mCanDraw = true;
                     mCurrentObjectMouseOn = null;
-                }
-                
+                }               
             }
             //点击或者拖动鼠标的时候可以绘制/擦除地块
             if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && GUIUtility.hotControl == 0)
             {
                 if (mCanDraw && mCurrentOperateMode == OperateMode.Draw)
                 {
-                    if (mCurrentBrushType == BrushType.Ground) // +
+                    if (mCurrentBrushType == BrushType.Ground)
                     {
                         var groundPrefab = Resources.Load<GameObject>("Ground");
                         var groundGameObj = Instantiate(groundPrefab, transform);

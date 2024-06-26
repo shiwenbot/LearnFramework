@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ShootGame
 {
@@ -17,7 +18,7 @@ namespace ShootGame
         }
 
         public void AddItem(Item item)
-        {
+        {        
             itemList.Add(item);
         }
     }

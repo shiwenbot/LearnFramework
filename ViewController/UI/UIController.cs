@@ -22,7 +22,7 @@ namespace ShootGame
             this.RegisterEvent<OnCurrentGunChanged>(e =>
             {
                 mMaxBulletCount = new MaxBulletCountQuery(gunSystem.CurrentGun.GunName.Value).Do(); //查询弹夹最大容量
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);           
         }
 
         private void OnGUI()

@@ -15,5 +15,12 @@ namespace ShootGame
         public ItemType itemType;
         public string name;
         public int amount;
+
+        public Item() { }
+        public Item(string name, int amount)
+        {
+            this.name = name;
+            this.amount = amount;
+        }
     }
 }

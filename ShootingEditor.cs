@@ -12,7 +12,7 @@ namespace ShootGame
             RegisterSystem<ITimeSystem>(new TimeSystem());
             RegisterModel<IGunConfigModel>(new GunConfigModel());
             RegisterSystem<ReferencePoolSystem>(new ReferencePool());
+            RegisterModel<IInventoryModel>(new InventoryModel());
         }
     }
 }
-

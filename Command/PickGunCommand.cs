@@ -19,6 +19,8 @@ namespace ShootGame
         {
             this.GetSystem<IGunSystem>()
                 .PickGun(mName, mBulletInGun, mBulletOutGun);
+            //this.GetSystem<IInventorySystem>().AddItem(new Item { itemType = Item.ItemType.Gun, name = "Gun", amount = 1 });
+            //this.GetSystem<I_Inventory>().print();
         }
     }
 }

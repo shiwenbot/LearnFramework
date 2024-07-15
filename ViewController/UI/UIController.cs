@@ -1,6 +1,7 @@
 using QFramework;
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace ShootGame
 {
@@ -23,6 +24,14 @@ namespace ShootGame
             {
                 mMaxBulletCount = new MaxBulletCountQuery(gunSystem.CurrentGun.GunName.Value).Do(); //查询弹夹最大容量
             }).UnRegisterWhenGameObjectDestroyed(gameObject);           
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {               
+                transform.Find("Canvas").Find("Panel").gameObject.SetActive(true);
+            }
         }
 
         private void OnGUI()

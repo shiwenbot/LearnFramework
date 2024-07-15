@@ -22,7 +22,7 @@ namespace ShootGame
             if (mGunInfo.BulletLeft.Value > 0 && mGunInfo.GunState.Value == GunState.Idle)
             {
                 //这里要从池子中获取一个子弹对象
-                var bullet = this.GetSystem<ReferencePoolSystem>().Acquire<Bullet>();
+                var bullet = ReferencePool.Acquire<Bullet>();
                 if(bullet == null)
                 {
                     bullet = Instantiate(mBullet.transform, mBullet.transform.position, mBullet.transform.rotation).GetComponent<Bullet>();

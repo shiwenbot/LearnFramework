@@ -12,26 +12,20 @@ namespace ShootGame
         void Clear();
     }
 
-    public interface ReferencePoolSystem : ISystem
-    {
-        public T Acquire<T>() where T : class, IReference, new();
-        public void Release(IReference reference);
-    }
-
-    public class ReferencePool : AbstractSystem, ReferencePoolSystem
+    public static class ReferencePool
     {
         private static readonly Dictionary<Type, ReferenceCollection> s_ReferenceCollections 
             = new Dictionary<Type, ReferenceCollection>();
         public static int Count { get { return s_ReferenceCollections.Count; } }
 
         //从引用池中获取对象
-        public T Acquire<T>() where T : class, IReference, new()
+        public static T Acquire<T>() where T : class, IReference, new()
         {
             return GetReferenceCollection(typeof(T)).Acquire<T>();
         }
 
         //把对象放回引用池
-        public void Release(IReference reference)
+        public static void Release(IReference reference)
         {
             if (reference == null)
             {
@@ -58,11 +52,6 @@ namespace ShootGame
             }
 
             return referenceCollection;
-        }
-
-        protected override void OnInit()
-        {
-            
         }
     }
 }

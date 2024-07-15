@@ -1,4 +1,5 @@
 ﻿using QFramework;
+using UnityEngine;
 namespace ShootGame
 {
     public class CurrentInventoryQuery : IBelongToArchitecture, ICanGetModel

@@ -1,24 +1,29 @@
 using QFramework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShootGame{
     public class Player : MonoBehaviour, IController
     {
-        /*private UI_Inventory uiInventory;
-        private Inventory inventory;*/
         private Rigidbody2D mRigidbody2D;
         private bool mJump = false; //½ÇÉ«ÌøÔ¾
         private CollisionCheck mCollisionCheck;
         private Gun gun;
+        protected List<FsmState<Player>> stateList;
+        private IFsm<Player> fsm;
 
         private void Awake()
         {
             mRigidbody2D = GetComponent<Rigidbody2D>();
             mCollisionCheck = transform.Find("GroundCheck").GetComponent<CollisionCheck>();
             gun = transform.Find("Gun").GetComponent<Gun>();
-            /*inventory = new Inventory();
-            uiInventory = GameObject.FindWithTag("SlotContainer").GetComponent<UI_Inventory>();
-            uiInventory.SetInventory(inventory);*/
+        }
+
+        private void Start()
+        {
+            List<FsmState<Player>> stateList = new List<FsmState<Player>>() { new IdleState(), new MoveState() };
+            fsm = FsmManager.Instance.CreateFsm<Player>("Player", this, stateList);
+            fsm.Start<IdleState>();
         }
 
         private void Update()

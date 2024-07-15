@@ -44,7 +44,7 @@ namespace ShootGame
 
             //如果池中没有对象
             Debug.Log("池子空了，需要新建");
-            return null;
+            return new T();
         }
 
         public void Release(IReference reference)

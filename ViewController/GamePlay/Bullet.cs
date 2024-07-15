@@ -37,7 +37,7 @@ namespace ShootGame
         
         public void Release()
         {
-            this.GetSystem<ReferencePoolSystem>().Release(this);
+            ReferencePool.Release(this);
         }
         public void Clear()
         {

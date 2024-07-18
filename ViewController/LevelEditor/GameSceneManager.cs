@@ -5,9 +5,17 @@ using UnityEngine;
 
 namespace ShootGame
 {
-    public class LevelPlayer : MonoBehaviour
+    public class GameSceneManager
     {
-
+        private static GameSceneManager m_Instance;
+        public static GameSceneManager Instance
+        {
+            get
+            {
+                if (m_Instance == null) m_Instance = new();
+                return m_Instance;
+            }
+        }
         enum PlayerState
         {
             SelectLevelFile,
@@ -17,9 +25,14 @@ namespace ShootGame
         private PlayerState mCurrentLevelFile = PlayerState.SelectLevelFile;
 
         private string mLevelFilesFolder;
-        private void Awake()
+
+        private GameSceneManager()
         {
             mLevelFilesFolder = Application.persistentDataPath + "/LevelFiles";
+        }
+
+        public void LoadScene()
+        {
             //获取文件夹路径中的第一个xml文件，读取
             var filePath = Directory.GetFiles(mLevelFilesFolder).FirstOrDefault(f => f.EndsWith("xml"));
             if (filePath != null)
@@ -29,7 +42,6 @@ namespace ShootGame
                 mCurrentLevelFile = PlayerState.Playing;
             }
         }
-
 
         void ParseAndRun(string xml)
         {
@@ -46,30 +58,9 @@ namespace ShootGame
 
                 var levelItemPrefab = Resources.Load<GameObject>(levelItemName);
 
-                var levelItemGameObj = Instantiate(levelItemPrefab, transform);
+                var levelItemGameObj = Object.Instantiate(levelItemPrefab);
                 levelItemGameObj.transform.position = new Vector3(levelItemX, levelItemY, 0);
             }
         }
-
-        /*private void OnGUI()
-        {
-            if (mCurrentLevelFile == PlayerState.SelectLevelFile)
-            {
-                int y = 10;
-
-                foreach (var filePath in Directory.GetFiles(mLevelFilesFolder).Where(f => f.EndsWith("xml")))
-                {
-                    var fileName = Path.GetFileName(filePath);
-
-                    if (GUI.Button(new Rect(10, y, 150, 40), fileName))
-                    {
-                        var xml = File.ReadAllText(filePath);
-                        ParseAndRun(xml);
-                        mCurrentLevelFile = PlayerState.Playing;
-                    }
-                    y += 50;
-                }
-            }
-        }*/
     }
 }

@@ -1,6 +1,8 @@
 using QFramework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 
 namespace ShootGame{
     public class Player : MonoBehaviour, IController
@@ -13,7 +15,7 @@ namespace ShootGame{
         private IFsm<Player> fsm;
 
         private void Awake()
-        {
+        {           
             mRigidbody2D = GetComponent<Rigidbody2D>();
             mCollisionCheck = transform.Find("GroundCheck").GetComponent<CollisionCheck>();
             gun = transform.Find("Gun").GetComponent<Gun>();
@@ -21,9 +23,15 @@ namespace ShootGame{
 
         private void Start()
         {
-            List<FsmState<Player>> stateList = new List<FsmState<Player>>() { new IdleState(), new MoveState() };
+            PrintBug();
+            stateList = new List<FsmState<Player>>() { new IdleState(), new MoveState() };
             fsm = FsmManager.Instance.CreateFsm<Player>("Player", this, stateList);
             fsm.Start<IdleState>();
+        }
+
+        public void PrintBug()
+        {
+            Debug.Log("Œ“ «bug");
         }
 
         private void Update()

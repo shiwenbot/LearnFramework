@@ -42,6 +42,7 @@ namespace ShootGame
             GUI.Label(new Rect(10, 110, 300, 100), "Bullet in Screen: " + gunSystem.CurrentGun.BulletOutGun.Value, mLabelStyle.Value);
             GUI.Label(new Rect(10, 160, 300, 100), "Gun State: " + gunSystem.CurrentGun.GunState.Value, mLabelStyle.Value);
 
+
             GUI.Label(new Rect(Screen.width - 300 - 10, 10, 300, 100), "Kill count: " + stateSystem.killCount.Value, mLabelStyle.Value);
         }
 

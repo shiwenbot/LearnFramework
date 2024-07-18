@@ -9,8 +9,7 @@ namespace ShootGame
         {
             var playerModel = this.GetModel<IPlayerModel>();
 
-            playerModel.HP.Value--;
-
+            playerModel.HP.Value--;           
             if (playerModel.HP.Value <= 0)
             {
                 SceneManager.LoadScene("GameOver");

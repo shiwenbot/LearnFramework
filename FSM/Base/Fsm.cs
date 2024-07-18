@@ -8,6 +8,7 @@ namespace ShootGame
     {
         private T m_Owner;
         private readonly Dictionary<Type, FsmState<T>> m_States;
+        private Dictionary<string, Variable> m_Datas;
         private FsmState<T> m_CurrentState;
 
         public T Owner { get { return m_Owner; } }
@@ -81,11 +82,6 @@ namespace ShootGame
             return null;
         }
 
-        public void Clear()
-        {
-            //Need to release
-        }
-
         internal void ChangeState<TState>() where TState : FsmState<T>
         {
             ChangeState(typeof(TState));
@@ -97,6 +93,51 @@ namespace ShootGame
             m_CurrentState.OnLeave(this);
             m_CurrentState = state;
             m_CurrentState.OnEnter(this);
+        }
+        public TData GetData<TData>(string name) where TData : Variable
+        {
+            return (TData)GetData(name);
+        }
+
+        public Variable GetData(string name)
+        {
+            if (m_Datas == null)
+            {
+                return null;
+            }
+
+            Variable data = null;
+            if (m_Datas.TryGetValue(name, out data))
+            {
+                return data;
+            }
+
+            return null;
+        }
+        public void SetData<TData>(string name, TData data) where TData : Variable
+        {
+            SetData(name, (Variable)data);
+        }
+
+        public void SetData(string name, Variable data)
+        {
+            if (m_Datas == null)
+            {
+                m_Datas = new Dictionary<string, Variable>(StringComparer.Ordinal);
+            }
+
+            Variable oldData = GetData(name);
+            if (oldData != null)
+            {
+                ReferencePool.Release(oldData);
+            }
+
+            m_Datas[name] = data;
+        }
+
+        public void Clear()
+        {
+            //Need to release
         }
     }
 }

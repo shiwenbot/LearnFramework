@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace ShootGame
+﻿namespace ShootGame
 {
     public sealed class FsmComponent : FrameworkComponent
     {

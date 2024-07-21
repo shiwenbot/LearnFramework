@@ -74,11 +74,9 @@ namespace ShootGame
         {
             FsmState<T> state = null;
             if (m_States.TryGetValue(stateType, out state))
-            {
-                Debug.Log("Get State Successful");
+            {               
                 return state;
             }
-            Debug.Log("Fail to get State");
             return null;
         }
 

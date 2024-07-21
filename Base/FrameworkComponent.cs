@@ -8,5 +8,10 @@ namespace ShootGame
         {
             GameEntry.RegisterComponent(this);
         }
+
+        protected virtual void Update()
+        {
+            
+        }
     }
 }

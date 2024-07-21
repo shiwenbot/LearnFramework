@@ -9,6 +9,10 @@ namespace ShootGame
     public static class GameEntry
     {
         private static readonly LinkedList<FrameworkComponent> s_FrameworkComponents = new LinkedList<FrameworkComponent>();
+        public static T GetComponent<T>() where T : FrameworkComponent
+        {
+            return (T)GetComponent(typeof(T));
+        }
         public static FrameworkComponent GetComponent(Type type)
         {
             LinkedListNode<FrameworkComponent> current = s_FrameworkComponents.First;
@@ -23,7 +27,7 @@ namespace ShootGame
             return null;
         }
 
-        internal static void RegisterComponent(FrameworkComponent frameworkComponent)
+        public static void RegisterComponent(FrameworkComponent frameworkComponent)
         {
             Type type = frameworkComponent.GetType();
 

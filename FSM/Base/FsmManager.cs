@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Base;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace ShootGame
 {
@@ -8,6 +6,7 @@ namespace ShootGame
     {
         private readonly Dictionary<TypeNamePair, FsmBase> m_Fsms;
         private readonly List<FsmBase> m_TempFsms;
+
         private static FsmManager m_Instance;
         private FsmManager()
         {

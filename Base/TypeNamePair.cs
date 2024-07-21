@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using UnityEditor;
-using UnityEngine;
 
-namespace Assets.Scripts.Base
+namespace ShootGame
 {
     [StructLayout(LayoutKind.Auto)]
     internal struct TypeNamePair : IEquatable<TypeNamePair>

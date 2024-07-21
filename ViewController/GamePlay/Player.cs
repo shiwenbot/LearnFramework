@@ -1,16 +1,17 @@
 using QFramework;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using XLua;
 
-namespace ShootGame{
-    public class Player : MonoBehaviour, IController
+namespace ShootGame
+{
+    public class Player : Entity, IController
     {
         private Rigidbody2D mRigidbody2D;
         private bool mJump = false; //½ÇÉ«ÌøÔ¾
         private CollisionCheck mCollisionCheck;
         private Gun gun;
+
+        //ECS
         protected List<FsmState<Player>> stateList;
         private IFsm<Player> fsm;
 
@@ -23,10 +24,14 @@ namespace ShootGame{
 
         private void Start()
         {
-            PrintBug();
+            //PrintBug();
             stateList = new List<FsmState<Player>>() { new IdleState(), new MoveState() };
             fsm = FsmManager.Instance.CreateFsm<Player>("Player", this, stateList);
             fsm.Start<IdleState>();
+
+            List<IEcsComponent> ecsComponents = new List<IEcsComponent> { new BuffComponent() };
+            EventManager.Instance.SendEvent<Entity, List<IEcsComponent>>("IntializeEntity", this, ecsComponents);
+            EventManager.Instance.SendEvent<Entity>("AddEntity", this);
         }
 
         public void PrintBug()
@@ -53,6 +58,10 @@ namespace ShootGame{
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 this.SendCommand<SwitchGunCommand>();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                this.SendCommand(new ApplyBleedBuffCommand(this));
             }
         }
 

@@ -11,7 +11,7 @@ namespace ShootGame
         private void Start()
         {
             stateList = new List<FsmState<ProcedureManager>> { new LaunchState(), new HotFixState(), new GameState() };
-            fsm = FsmManager.Instance.CreateFsm<ProcedureManager>("ProcedureManager", this, stateList);
+            fsm = FsmManager.Instance.CreateFsm("ProcedureManager", this, stateList);
             fsm.Start<LaunchState>();
         }
     }

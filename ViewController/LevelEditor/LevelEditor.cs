@@ -230,6 +230,7 @@ namespace ShootGame
                         var groundPrefab = Resources.Load<GameObject>("Ground");
                         var groundGameObj = Instantiate(groundPrefab, transform);
                         groundGameObj.transform.position = worldMousePos;
+                        groundGameObj.transform.localScale = Vector3.one;
                         groundGameObj.name = "Ground";
 
                         mCanDraw = false;
@@ -240,6 +241,7 @@ namespace ShootGame
                         var groundPrefab = Resources.Load<GameObject>("Ground");
                         var groundGameObj = Instantiate(groundPrefab, transform);
                         groundGameObj.transform.position = worldMousePos;
+                        groundGameObj.transform.localScale = Vector3.one;
                         groundGameObj.name = "Player";
 
                         // 用青色代替主角

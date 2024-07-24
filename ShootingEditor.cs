@@ -10,8 +10,7 @@ namespace ShootGame
             RegisterModel<IPlayerModel>(new PlayerModel());
             RegisterSystem<IGunSystem>(new GunSystem());
             RegisterSystem<ITimeSystem>(new TimeSystem());
-            RegisterModel<IGunConfigModel>(new GunConfigModel());
-            RegisterModel<IInventoryModel>(new InventoryModel());
+            RegisterModel<IGunConfigModel>(new GunConfigModel());          
         }
     }
 }

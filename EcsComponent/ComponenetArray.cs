@@ -15,7 +15,7 @@ namespace ShootGame
     /// 用一个字典记录entity和它的component在list中的位置
     /// 如果一个entity被移除了，那么在list中的component的数据也就无效了，就把要删除位置的数据和末尾交换，再更新字典
     /// </summary>
-    public class ComponentArray<T> : IComponentArray, IReference where T : class, IEcsComponent, new()
+    public class ComponentArray<T> : IComponentArray, IReference where T : class, IEcsComponent
     {
         private List<T> components = new List<T>();
         private Dictionary<Entity, int> indexMap = new Dictionary<Entity, int>();
@@ -23,12 +23,12 @@ namespace ShootGame
 
         public Type ComponentType => typeof(T);
 
-        public T GetComponent(Entity entity)
-        {           
+        public T GetComponent(Entity entity, params object[] args)
+        {
             // 如果map中不存在这个key，调用Add
             if (!indexMap.ContainsKey(entity))
             {
-                var newComponent = ReferencePool.Acquire<T>();
+                var newComponent = (T)Activator.CreateInstance(typeof(T), args);
                 AddComponent(entity, newComponent);
             }
 

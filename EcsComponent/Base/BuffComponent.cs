@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace ShootGame
@@ -11,6 +12,7 @@ namespace ShootGame
         public BuffComponent()
         {
             _buffs = new List<BuffBase>();
+            EventManager.Instance.RegisterEvent<BuffBase, bool>("NoxianMightInit", AddBuff);
         }
 
         public void Tick(float deltatime)
@@ -51,9 +53,21 @@ namespace ShootGame
             _buffs.Add(buff);
         }
 
-        public void AddBuff(BuffBase buff)
+        /// <summary>
+        /// 用法：比如流血到5层了，需要添加血怒buff
+        /// </summary>
+        /// <param name="buff"></param>
+        public void AddBuff(BuffBase buff, bool isCaster)
         {
-            //新建buff并加入到list中
+            // 获取 buff 的类型
+            Type buffType = buff.GetType();
+
+            // 使用反射来调用 CommitBuff<T>
+            MethodInfo method = typeof(BuffComponent).GetMethod(nameof(CommitBuff), BindingFlags.Public | BindingFlags.Instance);
+            MethodInfo genericMethod = method.MakeGenericMethod(buffType);
+            genericMethod.Invoke(this, null);
+
+            buff.Initialize(isCaster);
         }
 
         public T GetBuff<T>() where T : BuffBase

@@ -16,6 +16,9 @@ namespace ShootGame
         public abstract void OnDestroy(); //销毁的时候调用
         public abstract void OnRefresh(); //处理多个同名buff叠加的情况
         public abstract void Clear();
-        
+
+        public abstract void Initialize(bool isCaster);
+
+        protected abstract void ResetParams();
     }
 }

@@ -41,9 +41,13 @@ namespace ShootGame
             }
             List<string> differingFiles = CompareFilesWithLocal("Assets/Config/md5list.txt");
             if (differingFiles.Count > 0) //如果有不同的文件
-            {              
+            {
                 m_fsm.SetData<VarList<string>>("differingFiles", differingFiles);
                 ChangeState<HotFixState>(fsm);
+            }
+            else
+            {
+                ChangeState<GameState>(fsm);
             }
         }
         public override void OnLeave(IFsm<ProcedureManager> fsm) { }
@@ -143,7 +147,8 @@ namespace ShootGame
                     continue;
                 }
 
-                string relativePath = parts[0];
+                // Extract file name from path
+                string relativePath = Path.GetFileName(parts[0]);
                 string downloadedMD5 = parts[1];
 
                 if (localMD5Map.TryGetValue(relativePath, out string localMD5))
@@ -161,6 +166,7 @@ namespace ShootGame
 
             return differingFiles;
         }
+
 
         private void LoadLocalMD5List(string localMD5ListPath)
         {

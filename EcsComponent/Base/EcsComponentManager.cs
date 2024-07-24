@@ -15,17 +15,9 @@ namespace ShootGame
             EventManager.Instance.RegisterEvent<Entity, List<IEcsComponent>>("DestroyEntity", OnEntityDestroy);
         }
 
-        protected override void Update()
-        {
-            foreach (var componentArray in componentArrays)
-            {
-                
-            }
-        }
-
         private List<IComponentArray> componentArrays = new List<IComponentArray>();
 
-        public ComponentArray<T> GetArray<T>() where T : class, IEcsComponent, new()
+        public ComponentArray<T> GetArray<T>(params object[] args) where T : class, IEcsComponent
         {
             foreach (var array in componentArrays)
             {
@@ -36,7 +28,7 @@ namespace ShootGame
             }
 
             // 创建新的 ComponentArray<T> 实例
-            var newArray = ReferencePool.Acquire<ComponentArray<T>>();
+            var newArray = (ComponentArray<T>)Activator.CreateInstance(typeof(ComponentArray<T>), args);
             componentArrays.Add(newArray);
             return newArray;
         }
@@ -57,7 +49,7 @@ namespace ShootGame
                 genericMethod.Invoke(this, new object[] { entity, component });
 
                 //如果这个ecsComponent是buff的话，需要通知buffComponentManager
-                if(componentType == typeof(BuffComponent))
+                if (componentType == typeof(BuffComponent))
                 {
                     Debug.Log("Send Event");
                     EventManager.Instance.SendEvent("Initialize buffComponent", (BuffComponent)component);

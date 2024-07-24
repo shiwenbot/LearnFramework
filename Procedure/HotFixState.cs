@@ -17,7 +17,7 @@ namespace ShootGame
         private string baseURL = "http://172.16.111.199:81/";
         private string localFolderPath = "D:/unity/2D shoot/Assets/AssetBundle/";
 
-        bool finishHotfix = true;
+        bool finishHotfix = false;
 
         public override void OnInit(IFsm<ProcedureManager> fsm)
         {
@@ -30,7 +30,7 @@ namespace ShootGame
             base.OnEnter(fsm);
             differingFiles = m_fsm.GetData<VarList<string>>("differingFiles");
 
-            //CoroutineHelper.Instance.StartCoroutine(HotFixCoroutine(differingFiles));
+            CoroutineHelper.Instance.StartCoroutine(HotFixCoroutine(differingFiles));
         }
 
         public override void OnUpdate(IFsm<ProcedureManager> fsm)
@@ -38,10 +38,10 @@ namespace ShootGame
             base.OnUpdate(fsm);
             if (!finishHotfix) return;
 
-            /*luaEnv = new LuaEnv();
+            /**/
+            luaEnv = new LuaEnv();
             luaEnv.AddLoader(CustomLoader);
-            luaEnv.DoString("require 'main'");*/
-
+            luaEnv.DoString("require 'main'");
             ChangeState<GameState>(fsm);
         }
 
@@ -69,6 +69,7 @@ namespace ShootGame
                     Debug.Log($"File {fileName} downloaded and saved to {localFilePath}");
                 }
             }
+            yield return new WaitForSeconds(2f); //tmp
             finishHotfix = true;
         }
 

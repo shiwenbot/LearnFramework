@@ -26,13 +26,6 @@ namespace ShootGame
             }).UnRegisterWhenGameObjectDestroyed(gameObject);           
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.B))
-            {               
-                transform.Find("Canvas").Find("Panel").gameObject.SetActive(true);
-            }
-        }
 
         private void OnGUI()
         {

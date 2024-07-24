@@ -19,7 +19,7 @@ namespace ShootGame
         public static int Count { get { return s_ReferenceCollections.Count; } }
 
         //从引用池中获取对象
-        public static T Acquire<T>() where T : class, IReference, new()
+        public static T Acquire<T>(params object[] args) where T : class, IReference, new()
         {
             return GetReferenceCollection(typeof(T)).Acquire<T>();
         }

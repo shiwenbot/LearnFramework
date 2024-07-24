@@ -9,8 +9,9 @@
             m_FsmManager = FsmManager.Instance;
         }
 
-        private void Update()
+        protected override void Update()
         {
+            base.Update();
             if (m_FsmManager != null)
             {               
                 m_FsmManager.Update();

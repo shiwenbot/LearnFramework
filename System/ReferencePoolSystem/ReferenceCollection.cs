@@ -25,7 +25,7 @@ namespace ShootGame
         public int AcquireReferenceCount { get {  return m_AcquireReferenceCount; } }
         public int ReleaseReferenceCount { get { return m_ReleaseReferenceCount; } }
         public int TotalReferenceCount { get { return m_TotalReferenceCount; } }
-        public T Acquire<T>() where T : class, IReference, new()
+        public T Acquire<T>(params object[] args) where T : class, IReference, new()
         {
             if (typeof(T) != m_ReferenceType)
             {
@@ -42,7 +42,7 @@ namespace ShootGame
             }
 
             //如果池中没有对象
-            Debug.Log("池子空了，需要新建");
+            //Debug.Log("池子空了，需要新建");
             return new T();
         }
 
